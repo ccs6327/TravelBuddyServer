@@ -1,5 +1,5 @@
 <?php
-	require('/vendor/autoload.php');
+	require('./vendor/autoload.php');
 	use OpenTok\OpenTok;
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		//TODO move API key to client side request header 

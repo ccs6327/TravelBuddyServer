@@ -1,5 +1,5 @@
 <?php
-	require('/vendor/autoload.php');
+	require('./vendor/autoload.php');
 	use OpenTok\OpenTok;
 	use OpenTok\Session;
 	if ($_SERVER['REQUEST_METHOD'] === 'GET') {
