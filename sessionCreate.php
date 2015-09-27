@@ -29,14 +29,27 @@
 			    die("Connection failed: " . $conn->connect_error);
 			} 
 
-			$sql = "INSERT INTO session (sessionId)
-			VALUES ('". $sessionId ."')";
+			$sql = "SELECT * FROM session";
+			$result = $conn->query($sql);
 
-			// if ($conn->query($sql) === TRUE) {
-			//     echo "New record created successfully";
-			// } else {
-			//     echo "Error: " . $sql . "<br>" . $conn->error;
-			// }
+			if ($result->num_rows > 0) {
+			    //replace it
+			    $stmt = $conn->prepare("UPDATE session 
+									    SET sessionId = ?
+									    WHERE sessionId <> ''"); 
+				$stmt->bind_param("s", $sessionId);
+				$stmt->execute();		
+			} else {
+				//add it	
+				$sql = "INSERT INTO session (sessionId)
+				VALUES ('". $sessionId ."')";
+
+				if ($conn->query($sql) === TRUE) {
+				    error_log("New record created successfully");
+				} else {
+				    error_log("Error: " . $sql . "<br>" . $conn->error);
+				}	
+			}
 
 			$conn->close();
 		} else {
