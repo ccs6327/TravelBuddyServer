@@ -8,10 +8,11 @@
 				'd14bc579a363bc2dee91f2de51f8ae23898fb664');
 			$token = $opentok->generateToken($_POST["sessionId"]);
 
-			$arr = array (
-				'token' => $token,
-			);
-			echo json_encode($arr);
+			echo $token;
+			// $arr = array (
+			// 	'token' => $token,
+			// );
+			// echo json_encode($arr);
 		}
 	} else {
 		echo "WRONG METHOD";

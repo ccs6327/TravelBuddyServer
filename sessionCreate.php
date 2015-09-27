@@ -9,13 +9,36 @@
 			$sessionId = $session->getSessionId();
 			$token = $session->generateToken();
 
-			$arr = array (
-				'sessionId' => $sessionId,
-				'token' => $token,
-			);
-			echo json_encode($arr);
+			// $arr = array (
+			// 	'sessionId' => $sessionId,
+			// 	'token' => $token,
+			// );
+			// echo json_encode($arr);
+			echo $sessionId.'"'.$token;
 
-			//TODO save to database
+			//latest active session save to database
+			$servername = "localhost";
+			$username = "root";
+			$password = "";
+			$dbname = "travel_buddy";
+
+			// Create connection
+			$conn = new mysqli($servername, $username, $password, $dbname);
+			// Check connection
+			if ($conn->connect_error) {
+			    die("Connection failed: " . $conn->connect_error);
+			} 
+
+			$sql = "INSERT INTO session (sessionId)
+			VALUES ('". $sessionId ."')";
+
+			// if ($conn->query($sql) === TRUE) {
+			//     echo "New record created successfully";
+			// } else {
+			//     echo "Error: " . $sql . "<br>" . $conn->error;
+			// }
+
+			$conn->close();
 		} else {
 			echo "MISSING API KEY";
 		}
